@@ -1,0 +1,29 @@
+---
+const links = [
+  { href: '/', label: 'Inicio' },
+  { href: '/programas', label: 'Programas' },
+  { href: '/sobre-indonesia', label: 'Sobre Indonesia' },
+  { href: '/contacto', label: 'Contacto' },
+];
+---
+
+<header class="border-b border-white/5 bg-scibasku-noche/80 backdrop-blur sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-serif text-xl text-scibasku-oro-claro">
+      Indonesia · <span class="text-scibasku-arena/70 text-sm">Viajes Scibasku</span>
+    </a>
+    <nav class="hidden md:flex gap-6 text-sm">
+      {links.map(({ href, label }) => (
+        <a href={href} class="text-scibasku-arena/80 hover:text-scibasku-oro-claro transition">{label}</a>
+      ))}
+    </nav>
+    <a
+      href="https://wa.me/34619401041"
+      target="_blank"
+      rel="noopener"
+      class="text-xs px-3 py-2 rounded-full border border-scibasku-cian-claro/40 text-scibasku-cian-claro hover:bg-scibasku-cian-claro/10 transition"
+    >
+      WhatsApp
+    </a>
+  </div>
+</header>

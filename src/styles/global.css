@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --color-scibasku-oro: #c9a14a;
+  --color-scibasku-oro-claro: #e8c878;
+  --color-scibasku-cian: #2c8c8c;
+  --color-scibasku-cian-claro: #4ab0b0;
+  --color-scibasku-tinta: #0e1a24;
+  --color-scibasku-noche: #060c12;
+  --color-scibasku-niebla: #1a2632;
+  --color-scibasku-arena: #f7f1e3;
+  --color-scibasku-blanco: #fafafa;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-scibasku-tinta);
+  color: var(--color-scibasku-arena);
+  font-family: var(--font-sans);
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--color-scibasku-tinta) 0%, var(--color-scibasku-noche) 100%);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: var(--color-scibasku-oro-claro);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--color-scibasku-oro);
+}
+
+.prose-scibasku h2 {
+  color: var(--color-scibasku-oro-claro);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+}
+
+.prose-scibasku h3 {
+  color: var(--color-scibasku-cian-claro);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+}
+
+.prose-scibasku p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
+
+.prose-scibasku ul {
+  margin-bottom: 1.25rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.prose-scibasku ul li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.prose-scibasku strong {
+  color: var(--color-scibasku-arena);
+  font-weight: 600;
+}
+
+.prose-scibasku table {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+}
+
+.prose-scibasku th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-scibasku-niebla);
+  color: var(--color-scibasku-oro-claro);
+  border-bottom: 1px solid rgba(201, 161, 74, 0.3);
+  font-size: 0.875rem;
+}
+
+.prose-scibasku td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.875rem;
+}
+
+.prose-scibasku em {
+  color: var(--color-scibasku-cian-claro);
+  font-style: italic;
+}

@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProgramaCard from '../components/ProgramaCard.astro';
+
+const programas = (await getCollection('programas'))
+  .sort((a, b) => b.data.duracion_dias - a.data.duracion_dias);
+
+const hooks: Record<string, string> = {
+  'gran-vuelta-indonesia': 'Sumatra, Java, Bali y Komodo en un solo viaje. El itinerario más completo del archipiélago.',
+  'indonesia-esencial': 'Java y Bali en doce días, conectados por carretera y ferry. Para una primera vez sin atajos.',
+  'bali-authentic': 'El Bali del norte y oeste, fuera del circuito masivo. Cierra con ceremonia Melukat.',
+  'bali-highlights': 'Diagonal por Bali en cuatro días: Ubud, Lovina, Kintamani y Candidasa.',
+  'bali-lembongan': 'Tres noches en la isla vecina de Bali. Snorkel, manglares y descanso real.',
+};
+---
+
+<BaseLayout title="Indonesia con criterio">
+  <section class="relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-scibasku-noche/30 via-scibasku-noche/70 to-scibasku-noche"></div>
+    <img
+      src="https://res.cloudinary.com/drqgkirpy/image/upload/c_fill,w_2000,h_1000,q_auto,f_auto/viajesscibasku/indonesia/hero/borobudur-amanecer"
+      alt="Borobudur al amanecer"
+      class="w-full h-[70vh] object-cover"
+    />
+    <div class="absolute inset-0 flex items-center">
+      <div class="max-w-6xl mx-auto px-6 w-full">
+        <p class="text-scibasku-cian-claro text-sm tracking-widest uppercase mb-4">Indonesia</p>
+        <h1 class="text-5xl md:text-6xl font-serif text-scibasku-arena max-w-3xl leading-tight">
+          17.508 islas. <em class="text-scibasku-oro-claro not-italic">Cinco maneras</em> de empezar.
+        </h1>
+        <p class="text-lg text-scibasku-arena/80 max-w-2xl mt-6">
+          Programas operados por DMC local con guía castellano. Sin marketing vacío, sin sorpresas en el bono. Cada itinerario es la lógica que aplicamos cuando un cliente nos pide ver Indonesia de verdad.
+        </p>
+        <div class="flex gap-3 mt-8">
+          <a href="#programas" class="px-5 py-3 rounded-full bg-scibasku-oro text-scibasku-noche font-medium hover:bg-scibasku-oro-claro transition">Ver programas</a>
+          <a href="/contacto" class="px-5 py-3 rounded-full border border-scibasku-cian-claro/40 text-scibasku-cian-claro hover:bg-scibasku-cian-claro/10 transition">Pedir cotización</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="programas" class="max-w-6xl mx-auto px-6 py-20">
+    <div class="mb-12">
+      <h2 class="text-3xl md:text-4xl font-serif text-scibasku-oro-claro mb-3">Programas</h2>
+      <p class="text-scibasku-arena/70 max-w-2xl">
+        De cuatro a veinticinco días, ordenados por duración. Cada precio es orientativo en grupo de 4-8 personas con guía castellano y sin vuelos internacionales — los presupuestamos a medida.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {programas.map((p) => (
+        <ProgramaCard
+          href={`/programas/${p.data.slug}`}
+          title={p.data.title}
+          duracion={`${p.data.duracion_dias} días`}
+          destinos={p.data.destinos}
+          desde_eur={p.data.desde_eur}
+          ritmo={p.data.ritmo}
+          hero={p.data.hero_image ?? 'viajesscibasku/indonesia/hero/default'}
+          hook={hooks[p.data.slug] ?? ''}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="border-t border-white/5 py-20">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-10">
+      <div>
+        <div class="text-scibasku-oro-claro mb-2 font-serif text-2xl">Operación local</div>
+        <p class="text-scibasku-arena/70 text-sm">DMC con sede en Sanur (Bali) y oficinas en todo el archipiélago. Guías hispanohablantes contrastados.</p>
+      </div>
+      <div>
+        <div class="text-scibasku-oro-claro mb-2 font-serif text-2xl">Sin desgloses ocultos</div>
+        <p class="text-scibasku-arena/70 text-sm">Cada presupuesto detalla qué incluye y qué no. Si Pacto se reserva el derecho a ajustar tarifa por IDR/combustible, lo blindamos en el contrato del cliente.</p>
+      </div>
+      <div>
+        <div class="text-scibasku-oro-claro mb-2 font-serif text-2xl">Cobertura financiera</div>
+        <p class="text-scibasku-arena/70 text-sm">Agencia de viajes minorista CICMA 2283. Cobertura legal española, seguro de viaje opcional con Intermundial.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

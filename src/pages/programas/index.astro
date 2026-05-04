@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProgramaCard from '../../components/ProgramaCard.astro';
+
+const programas = (await getCollection('programas'))
+  .sort((a, b) => a.data.duracion_dias - b.data.duracion_dias);
+
+const hooks: Record<string, string> = {
+  'gran-vuelta-indonesia': 'Sumatra, Java, Bali y Komodo en un solo viaje. El itinerario más completo del archipiélago.',
+  'indonesia-esencial': 'Java y Bali en doce días, conectados por carretera y ferry. Para una primera vez sin atajos.',
+  'bali-authentic': 'El Bali del norte y oeste, fuera del circuito masivo. Cierra con ceremonia Melukat.',
+  'bali-highlights': 'Diagonal por Bali en cuatro días: Ubud, Lovina, Kintamani y Candidasa.',
+  'bali-lembongan': 'Tres noches en la isla vecina de Bali. Snorkel, manglares y descanso real.',
+};
+---
+
+<BaseLayout title="Programas a Indonesia">
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <p class="text-scibasku-cian-claro text-sm tracking-widest uppercase mb-3">Catálogo Indonesia</p>
+    <h1 class="text-4xl md:text-5xl font-serif text-scibasku-arena mb-4">Programas</h1>
+    <p class="text-scibasku-arena/70 max-w-2xl mb-12">
+      Cinco programas, ordenados de menor a mayor duración. Todos con guía castellano disponible y operación terrestre por DMC local. Vuelos internacionales y domésticos los gestionamos aparte.
+    </p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {programas.map((p) => (
+        <ProgramaCard
+          href={`/programas/${p.data.slug}`}
+          title={p.data.title}
+          duracion={`${p.data.duracion_dias} días`}
+          destinos={p.data.destinos}
+          desde_eur={p.data.desde_eur}
+          ritmo={p.data.ritmo}
+          hero={p.data.hero_image ?? 'viajesscibasku/indonesia/hero/default'}
+          hook={hooks[p.data.slug] ?? ''}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

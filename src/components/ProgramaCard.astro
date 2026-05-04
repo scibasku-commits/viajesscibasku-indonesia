@@ -1,0 +1,45 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  duracion: string;
+  destinos: string[];
+  desde_eur?: number;
+  ritmo: string;
+  hero: string;
+  hook: string;
+}
+
+const { href, title, duracion, destinos, desde_eur, ritmo, hero, hook } = Astro.props;
+const heroUrl = `https://res.cloudinary.com/drqgkirpy/image/upload/c_fill,w_900,h_600,q_auto,f_auto/${hero}`;
+const ritmoColor: Record<string, string> = {
+  relax: 'bg-scibasku-cian/30 text-scibasku-cian-claro',
+  pausado: 'bg-scibasku-cian/20 text-scibasku-cian-claro',
+  equilibrado: 'bg-scibasku-oro/20 text-scibasku-oro-claro',
+  intenso: 'bg-orange-500/20 text-orange-300',
+};
+---
+
+<a href={href} class="group block rounded-xl overflow-hidden border border-white/10 bg-scibasku-niebla/40 hover:border-scibasku-oro/40 transition">
+  <div class="aspect-[3/2] overflow-hidden bg-scibasku-niebla">
+    <img
+      src={heroUrl}
+      alt={title}
+      loading="lazy"
+      class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+    />
+  </div>
+  <div class="p-6">
+    <div class="flex items-center gap-2 mb-2 text-xs">
+      <span class="text-scibasku-oro-claro">{duracion}</span>
+      <span class="text-scibasku-arena/40">·</span>
+      <span class={`px-2 py-0.5 rounded-full ${ritmoColor[ritmo] ?? ritmoColor.equilibrado}`}>{ritmo}</span>
+    </div>
+    <h3 class="text-xl font-serif text-scibasku-arena mb-2 group-hover:text-scibasku-oro-claro transition">{title}</h3>
+    <p class="text-sm text-scibasku-arena/70 mb-4 line-clamp-2">{hook}</p>
+    <div class="flex items-center justify-between text-xs">
+      <span class="text-scibasku-arena/50">{destinos.slice(0, 3).join(' · ')}</span>
+      {desde_eur && <span class="text-scibasku-oro-claro font-semibold">desde {desde_eur} €</span>}
+    </div>
+  </div>
+</a>

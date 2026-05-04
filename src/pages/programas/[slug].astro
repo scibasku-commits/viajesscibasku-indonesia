@@ -1,0 +1,51 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const programas = await getCollection('programas');
+  return programas.map((p) => ({
+    params: { slug: p.data.slug },
+    props: { entry: p },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const heroUrl = `https://res.cloudinary.com/drqgkirpy/image/upload/c_fill,w_2000,h_900,q_auto,f_auto/${entry.data.hero_image ?? 'viajesscibasku/indonesia/hero/default'}`;
+---
+
+<BaseLayout title={entry.data.title} image={heroUrl}>
+  <section class="relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-scibasku-noche/40 via-scibasku-noche/70 to-scibasku-noche"></div>
+    <img src={heroUrl} alt={entry.data.title} class="w-full h-[55vh] object-cover" />
+    <div class="absolute inset-0 flex items-end pb-12">
+      <div class="max-w-3xl mx-auto px-6 w-full">
+        <div class="flex flex-wrap items-center gap-3 mb-3 text-sm">
+          <span class="text-scibasku-oro-claro">{entry.data.duracion_dias} días / {entry.data.duracion_noches} noches</span>
+          <span class="text-scibasku-arena/40">·</span>
+          <span class="text-scibasku-cian-claro">Ritmo {entry.data.ritmo}</span>
+          <span class="text-scibasku-arena/40">·</span>
+          <span class="text-scibasku-arena/70">Exigencia {entry.data.nivel_exigencia}</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-serif text-scibasku-arena leading-tight">{entry.data.title}</h1>
+        <p class="text-scibasku-arena/70 mt-3">{entry.data.destinos.join(' · ')}</p>
+      </div>
+    </div>
+  </section>
+
+  <article class="max-w-3xl mx-auto px-6 py-16 prose-scibasku">
+    <Content />
+  </article>
+
+  <section class="max-w-3xl mx-auto px-6 py-12">
+    <div class="rounded-2xl border border-scibasku-oro/30 bg-scibasku-niebla/50 p-8 text-center">
+      <h3 class="font-serif text-2xl text-scibasku-oro-claro mb-3">¿Te encaja este programa?</h3>
+      <p class="text-scibasku-arena/70 mb-6">Cotizamos a medida según fechas, hotel preferido y configuración del grupo. Respuesta en 24-48 h laborables.</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/contacto" class="px-5 py-3 rounded-full bg-scibasku-oro text-scibasku-noche font-medium hover:bg-scibasku-oro-claro transition">Pedir cotización</a>
+        <a href={`https://wa.me/34619401041?text=${encodeURIComponent(`Hola Giora, me interesa ${entry.data.title}.`)}`} target="_blank" rel="noopener" class="px-5 py-3 rounded-full border border-scibasku-cian-claro/40 text-scibasku-cian-claro hover:bg-scibasku-cian-claro/10 transition">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
